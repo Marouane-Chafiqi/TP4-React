@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# TP4 React : Projet de synthèse React – To-Do List interactive ou Blog simple
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pour ce projet de synthèse j'ai choisi l'option A, la To-Do List. Elle regroupe ce qu'on a vu avant : composants, `useState`, événements et props.
 
-## Available Scripts
+## Lancer le projet
 
-In the project directory, you can run:
+```
+npx create-react-app mon-projet-react
+cd mon-projet-react
+npm start
+```
 
-### `npm start`
+Ensuite j'ai remplacé le contenu du dossier `src/` par mes fichiers. L'application tourne sur `http://localhost:3000`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Fonctionnalités
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Ajouter une tâche avec un formulaire (un texte vide est refusé).
+- Afficher la liste des tâches.
+- Cocher ou décocher une tâche, elle est alors barrée.
+- Supprimer une tâche.
+- Un message s'affiche quand la liste est vide.
 
-### `npm test`
+Comme bonus j'ai ajouté :
+- les filtres Toutes, En cours et Terminées ;
+- la sauvegarde avec `localStorage`, donc les tâches restent après un rechargement de la page ;
+- un compteur du nombre de tâches restantes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Organisation
 
-### `npm run build`
+```
+src/
+├── components/
+│   ├── TodoForm.js
+│   ├── TodoItem.js
+│   └── TodoList.js
+├── App.css
+├── App.js
+├── index.css
+└── index.js
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `TodoForm` gère le champ de saisie avec un état local et appelle `ajouterTache` à la soumission.
+- `TodoList` parcourt le tableau avec `map()` et affiche un `TodoItem` par tâche.
+- `TodoItem` affiche une ligne avec la case à cocher et le bouton Supprimer.
+- `App` contient l'état global (les tâches et le filtre) et les trois fonctions : `ajouterTache`, `changerEtat` et `supprimerTache`. Elles sont passées aux composants enfants par les props.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+J'ai testé le champ vide, l'ajout de plusieurs tâches, la suppression, le changement d'état, les trois filtres et le rechargement de la page (les tâches sont bien conservées). Je n'ai pas d'erreur dans la console du navigateur.
 
-### `npm run eject`
+## Captures d'écran
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Liste vide au départ, avec le message d'information :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Liste vide](screenshots/1.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Liste avec trois tâches, dont une terminée (barrée) :
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Toutes les taches](screenshots/2.png)
 
-## Learn More
+Filtre "En cours" : seules les tâches non terminées sont affichées :
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Filtre en cours](screenshots/3.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Filtre "Terminées" : seule la tâche cochée est affichée :
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Filtre terminees](screenshots/4.png)
